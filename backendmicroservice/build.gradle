@@ -46,15 +46,26 @@ task waitForUsersAPI(type: Exec) {
 	commandLine './wait-for-api.sh','http://localhost:8080/users', 'Users API'
 }
 
+task waitForEventsAPI(type: Exec) {
+	commandLine './wait-for-api.sh','http://localhost:8080/events', 'Events API'
+}
+
 task runUsersAPITests(type: Exec) {
 	workingDir './users-api'
+	commandLine './gradlew', 'test'
+}
+
+task runEventsAPITests(type: Exec) {
+	workingDir './events-api'
 	commandLine './gradlew', 'test'
 }
 
 task allTests(type: Test) {
 	dependsOn cleanTest
 	dependsOn waitForUsersAPI
+	dependsOn waitForEventsAPI
 	dependsOn runUsersAPITests
+	dependsOn runEventsAPITests
 
 	testLogging {
 		exceptionFormat "full"
@@ -66,6 +77,7 @@ task allTests(type: Test) {
 test {
 	dependsOn cleanTest
 	dependsOn waitForUsersAPI
+	dependsOn waitForEventsAPI
 
 	testLogging {
 		exceptionFormat "full"

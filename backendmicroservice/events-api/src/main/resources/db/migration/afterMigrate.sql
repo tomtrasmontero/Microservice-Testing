@@ -1,0 +1,5 @@
+--INSERT INTO EVENTS
+--  (USER_ID, EVENT_ID)
+--VALUES
+--  ('1', '1'),
+--  ('1', '2');
