@@ -1,0 +1,31 @@
+.HomeVid {
+  height: auto !important;
+  width: 100vw !important;
+
+  opacity: 0.6;
+  filter: alpha(opacity=50); /* For IE8 and earlier */
+}
+
+.HomeContainer {
+  position: relative;
+  margin: 0px !important;
+  text-align: center;
+}
+
+.logo {
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+}
+
+.blurb {
+  p {
+    font-size: 2rem !important;
+  }
+  h2 {
+    font-size: 4rem !important;
+    text-align: center !important;
+    margin-top: 50px;
+  }
+}

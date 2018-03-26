@@ -1,0 +1,22 @@
+.Footer {
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1rem;
+  margin-top: 4rem;
+  text-align: center;
+  background-color: #1c181a;
+  color: #ededec;
+
+  a {
+    color: white;
+
+    &:Hover {
+      color: grey;
+    }
+  }
+
+  .Credits {
+    font-size: 0.8em !important;
+  }
+}

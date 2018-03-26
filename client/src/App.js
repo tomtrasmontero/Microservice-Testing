@@ -1,23 +1,29 @@
 import React, { Component } from 'react';
-// import { Route, Switch, Redirect } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import MenuBar from './Components/MenuBar/MenuBar';
+import Home from './Containers/Home/Home';
+import Events from './Containers/Events/Events';
+import Footer from './Components/Footer/Footer';
 import Aux from './hoc/Aux/Aux';
 
 class App extends Component {
-  componentWillMount() {
-    console.log('');
+  state = {
+    loggedIn: true,
   }
+
   render() {
-    // const routes = (
-    //   <Switch>
-    //     <Route path="/home" exact component={Home} />
-    //     <Redirect to="/home" />
-    //   </Switch>
-    // );
+    const routes = (
+      <Switch>
+        <Route path="/home" exact component={Home} />
+        <Route path="/events" exact component={Events} />
+        <Redirect to="/home" />
+      </Switch>
+    );
     return (
       <Aux>
-        <MenuBar />
-        {/* {routes} */}
+        <MenuBar loggedIn={this.state.loggedIn} />
+        {routes}
+        <Footer />
       </Aux>
     );
   }

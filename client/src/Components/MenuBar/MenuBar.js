@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { Menu, Segment } from 'semantic-ui-react';
+import { Menu, Container } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
+import classes from './MenuBar.scss';
 
 class MenuBar extends Component {
-  state = { activeItem: 'dashboard' };
+  state = { activeItem: 'home' };
 
   componentDidMount() {
     this.checkState();
@@ -23,18 +24,17 @@ class MenuBar extends Component {
   render() {
     const { activeItem } = this.state;
     return (
-      <Segment inverted>
-        <Menu inverted pointing secondary>
-          <Menu.Item name="dashboard" active={activeItem === 'dashboard'} onClick={this.handleItemClick} />
-          <Menu.Item name="detail" active={activeItem === 'detail'} onClick={this.handleItemClick} />
-          <Menu.Item name="summary" active={activeItem === 'summary'} onClick={this.handleItemClick} />
-          <Menu.Item name="employee" active={activeItem === 'employee'} onClick={this.handleItemClick} />
+      <Menu inverted color="blue" className={classes.MenuBar}>
+        <Container>
+          <Menu.Item header>NYC</Menu.Item>
+          <Menu.Item name="home" active={activeItem === 'home'} onClick={this.handleItemClick} />
+          <Menu.Item name="events" active={activeItem === 'events'} onClick={this.handleItemClick} />
           <Menu.Menu position="right">
             <Menu.Item name="login" active={activeItem === 'login'} />
             <Menu.Item name="help" active={activeItem === 'help'} />
           </Menu.Menu>
-        </Menu>
-      </Segment>
+        </Container>
+      </Menu>
     );
   }
 }
