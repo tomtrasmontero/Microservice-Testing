@@ -31,7 +31,6 @@ class MenuBar extends Component {
           <Menu.Item name="events" active={activeItem === 'events'} onClick={this.handleItemClick} />
           <Menu.Menu position="right">
             <Menu.Item name="login" active={activeItem === 'login'} />
-            <Menu.Item name="help" active={activeItem === 'help'} />
           </Menu.Menu>
         </Container>
       </Menu>

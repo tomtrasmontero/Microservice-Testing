@@ -28,7 +28,7 @@ class EventAccordion extends Component {
           <Icon name="dropdown" />
           <span >
             { this.state.activeIndex !== this.props.id ?
-                '...Show Details'
+                'Show Details'
               :
                 'Hide Details'
             }

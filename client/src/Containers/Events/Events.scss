@@ -4,14 +4,17 @@
 
 .EventsContainer {
   position: relative;
-  margin: 0px !important;
+  margin: 0px 0px 20px 0px !important;
   text-align: center;
   opacity: 0.6;
   filter: alpha(opacity=60); /* For IE8 and earlier */
 
+  background-size: cover;
+
+  height: 13rem !important;
+  width: 100vw !important;
+
   img {
-    height: 13rem !important;
-    width: 100vw !important;
   }
 }
 
@@ -28,7 +31,7 @@
       background: rgba(10, 10, 10, 0.65) !important;
     }
   }
-  
+
   @media only screen and (max-width: 500px) {
     h2.Header {
       color: white !important;
