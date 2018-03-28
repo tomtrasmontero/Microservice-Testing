@@ -26,6 +26,7 @@ class EventAccordion extends Component {
 
 
   render() {
+    console.log(this.props);
     return (
       <Accordion className={classes.Accordion}>
         <Accordion.Title

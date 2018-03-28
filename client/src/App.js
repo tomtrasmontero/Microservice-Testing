@@ -38,6 +38,10 @@ class App extends Component {
     return false;
   }
 
+  logIn = () => {
+    this.setState({ loggedIn: false, personId: 0 });
+  }
+
   render() {
     const SignUp = (
       <Login
@@ -84,7 +88,7 @@ class App extends Component {
     }
     return (
       <Aux>
-        <MenuBar loggedIn={this.state.loggedIn} />
+        <MenuBar loggedIn={this.state.loggedIn} logOut={this.logIn} />
         {routes}
         {/* <Footer /> */}
       </Aux>

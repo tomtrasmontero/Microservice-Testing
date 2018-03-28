@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Menu, Container } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
+import Aux from '../../hoc/Aux/Aux';
 import classes from './MenuBar.scss';
 
 class MenuBar extends Component {
@@ -21,6 +22,10 @@ class MenuBar extends Component {
     this.setState({ activeItem: name });
   }
 
+  logout = () => {
+    this.props.logOut();
+  }
+
   render() {
     const { activeItem } = this.state;
     return (
@@ -31,11 +36,13 @@ class MenuBar extends Component {
           <Menu.Item name="events" active={activeItem === 'events'} onClick={this.handleItemClick} />
           <Menu.Menu position="right">
             { this.props.loggedIn ?
-              <Menu.Item name="userEvents" active={activeItem === 'userEvents'} onClick={this.handleItemClick} />
+              <Aux>
+                <Menu.Item name="userEvents" active={activeItem === 'userEvents'} onClick={this.handleItemClick} />
+                <Menu.Item name="logout" active={activeItem === 'logout'} onClick={this.logout} />
+              </Aux>
               :
-              null
+              <Menu.Item name="login" active={activeItem === 'login'} onClick={this.handleItemClick} />
             }
-            <Menu.Item name="login" active={activeItem === 'login'} onClick={this.handleItemClick} />
           </Menu.Menu>
         </Container>
       </Menu>
@@ -49,6 +56,7 @@ MenuBar.propTypes = {
     location: PropTypes.shape().isRequired,
   }).isRequired,
   loggedIn: PropTypes.bool.isRequired,
+  logOut: PropTypes.func.isRequired,
 };
 
 export default withRouter(MenuBar);

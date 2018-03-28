@@ -43,6 +43,7 @@ class EventList extends Component {
   }
 
   render() {
+    console.log(this.props);
     const list = this.props.eventList.map((event) => (
         <Segment raised key={event.event_id + event.end_date_time} className={classes.Event}>
           <Grid>
@@ -84,6 +85,7 @@ class EventList extends Component {
               <Grid.Column mobile={16}>
                 <EventAccordion
                   {...event}
+                  id={this.props.personId}
                 />
               </Grid.Column>
             </Grid.Row>

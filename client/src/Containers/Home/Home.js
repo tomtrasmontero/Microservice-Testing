@@ -6,9 +6,6 @@ import NYC from '../../assets/NYClogo.png';
 import Aux from '../../hoc/Aux/Aux';
 
 class Home extends Component {
-  state = {
-
-  }
   componentDidMount() {
     console.log('mounted');
   }
