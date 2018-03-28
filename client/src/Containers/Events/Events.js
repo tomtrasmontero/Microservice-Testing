@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Segment, Container, Button } from 'semantic-ui-react';
 import axios from 'axios';
 import classes from './Events.scss';
-import EventList from '../../Components/EventList/EventList';
+import EventList from './EventList/EventList';
 import Aux from '../../hoc/Aux/Aux';
 import eventsHeader from '../../assets/events.jpg';
 import Filter from './Filter/Filter';
@@ -79,6 +79,7 @@ class Events extends Component {
             <br />
             <EventList
               eventList={this.state.currentEvents}
+              {...this.props}
             />
           </Segment>
         </Container>

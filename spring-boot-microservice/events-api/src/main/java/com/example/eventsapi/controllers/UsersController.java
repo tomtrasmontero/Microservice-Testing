@@ -35,6 +35,7 @@ public class UsersController {
         return foundUser;
     }
 
+
     @DeleteMapping("/users/{userId}")
     public HttpStatus deleteUserById(@PathVariable Long userId) throws EmptyResultDataAccessException {
 

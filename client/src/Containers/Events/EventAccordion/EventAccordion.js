@@ -1,12 +1,19 @@
 import React, { Component } from 'react';
 import { Accordion, Icon } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
-import EventDetail from '../../Components/EventsDetail/EventsDetail';
+import EventDetail from '../../../Components/EventsDetail/EventsDetail';
 import classes from './EventAccordion.scss';
 
 class EventAccordion extends Component {
   state = {
     activeIndex: 0,
+  }
+
+  shouldComponentUpdate(nextProps) {
+    if ([...nextProps].length === [...this.props].length) {
+      return false;
+    }
+    return true;
   }
 
   handleClick = (e, titleProps) => {
@@ -16,6 +23,7 @@ class EventAccordion extends Component {
 
     this.setState({ activeIndex: newIndex });
   };
+
 
   render() {
     return (

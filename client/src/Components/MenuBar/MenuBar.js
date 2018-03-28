@@ -30,7 +30,12 @@ class MenuBar extends Component {
           <Menu.Item name="home" active={activeItem === 'home'} onClick={this.handleItemClick} />
           <Menu.Item name="events" active={activeItem === 'events'} onClick={this.handleItemClick} />
           <Menu.Menu position="right">
-            <Menu.Item name="login" active={activeItem === 'login'} />
+            { this.props.loggedIn ?
+              <Menu.Item name="userEvents" active={activeItem === 'userEvents'} onClick={this.handleItemClick} />
+              :
+              null
+            }
+            <Menu.Item name="login" active={activeItem === 'login'} onClick={this.handleItemClick} />
           </Menu.Menu>
         </Container>
       </Menu>
@@ -43,6 +48,7 @@ MenuBar.propTypes = {
     push: PropTypes.func.isRequired,
     location: PropTypes.shape().isRequired,
   }).isRequired,
+  loggedIn: PropTypes.bool.isRequired,
 };
 
 export default withRouter(MenuBar);
