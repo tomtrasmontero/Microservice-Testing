@@ -9,15 +9,9 @@ class EventAccordion extends Component {
     activeIndex: 0,
   }
 
-  shouldComponentUpdate(nextProps) {
-    if ([...nextProps].length === [...this.props].length) {
-      return false;
-    }
-    return true;
-  }
-
   handleClick = (e, titleProps) => {
     const { index } = titleProps;
+    console.log(index);
     const { activeIndex } = this.state;
     const newIndex = activeIndex === index ? -1 : index;
 
@@ -26,24 +20,23 @@ class EventAccordion extends Component {
 
 
   render() {
-    console.log(this.props);
     return (
       <Accordion className={classes.Accordion}>
         <Accordion.Title
-          active={this.state.activeIndex === this.props.id}
-          index={this.props.id}
+          active={this.state.activeIndex === this.props.event_id}
+          index={this.props.event_id}
           onClick={this.handleClick}
         >
           <Icon name="dropdown" />
           <span >
-            { this.state.activeIndex !== this.props.id ?
+            { this.state.activeIndex !== this.props.event_id ?
                 'Show Details'
               :
                 'Hide Details'
             }
           </span>
         </Accordion.Title>
-        <Accordion.Content active={this.state.activeIndex === this.props.id}>
+        <Accordion.Content active={this.state.activeIndex === this.props.event_id}>
           <EventDetail {...this.props} />
         </Accordion.Content>
       </Accordion>
@@ -52,11 +45,11 @@ class EventAccordion extends Component {
 }
 
 EventAccordion.propTypes = {
-  id: PropTypes.string,
+  event_id: PropTypes.string,
 };
 
 EventAccordion.defaultProps = {
-  id: '',
+  event_id: '',
 };
 
 export default EventAccordion;
