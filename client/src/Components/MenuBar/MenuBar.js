@@ -34,6 +34,7 @@ class MenuBar extends Component {
           <Menu.Item header>NYC</Menu.Item>
           <Menu.Item name="home" active={activeItem === 'home'} onClick={this.handleItemClick} />
           <Menu.Item name="events" active={activeItem === 'events'} onClick={this.handleItemClick} />
+          <Menu.Item name="broadcast" active={activeItem === 'broadcast'} onClick={this.handleItemClick} />
           <Menu.Menu position="right">
             { this.props.loggedIn ?
               <Aux>

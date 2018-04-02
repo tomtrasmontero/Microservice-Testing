@@ -4,9 +4,9 @@ import axios from 'axios';
 import MenuBar from './Components/MenuBar/MenuBar';
 import Home from './Containers/Home/Home';
 import Events from './Containers/Events/Events';
-// import Footer from './Components/Footer/Footer';
 import Login from './Containers/Login/Login';
 import UserEvents from './Components/UserEvents/UserEvents';
+import Broadcast from './Containers/Broadcast/Broadcast';
 import Aux from './hoc/Aux/Aux';
 
 class App extends Component {
@@ -71,6 +71,7 @@ class App extends Component {
         <Route path="/home" exact component={Home} />
         <Route path="/events" exact component={() => EventPage} />
         <Route path="/login" exact component={() => SignUp} />
+        <Route path="/broadcast" exact component={Broadcast} />
         <Redirect to="/home" />
       </Switch>
     );
@@ -81,6 +82,7 @@ class App extends Component {
           <Route path="/home" exact component={Home} />
           <Route path="/events" exact component={() => EventPage} />
           <Route path="/login" exact component={() => SignUp} />
+          <Route path="/broadcast" exact component={Broadcast} />
           <Route path="/userEvents" exact component={() => UserPage} />
           <Redirect to="/home" />
         </Switch>
@@ -90,7 +92,6 @@ class App extends Component {
       <Aux>
         <MenuBar loggedIn={this.state.loggedIn} logOut={this.logIn} />
         {routes}
-        {/* <Footer /> */}
       </Aux>
     );
   }
