@@ -11,11 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class BroadcastApiApplication {
 
-	@RequestMapping("/")
-	public String home() {
-		return "some broadcast";
-	}
-
 	public static void main(String[] args) {
 		SpringApplication.run(BroadcastApiApplication.class, args);
 	}
