@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { Container, Segment, Button, Grid, Header, Divider, Input } from 'semantic-ui-react';
-import 'rtcmulticonnection-v3/dist/RTCMultiConnection.min';
+import createWebRTC from '../../RTCMultiConnection';
 import classes from './Broadcast.scss';
-
 
 class Broadcast extends Component {
   state = {
@@ -10,29 +9,12 @@ class Broadcast extends Component {
     visible: true,
     input: '',
     chatLog: [
-      { text: 'filler', id: 1 },
-      { text: 'filler', id: 12 },
-      { text: 'filler', id: 13 },
-      { text: 'filler', id: 14 },
-      { text: 'filler', id: 15 },
-      { text: 'filler', id: 16 },
-      { text: 'filler', id: 17 },
-      { text: 'filler', id: 18 },
-      { text: 'filler', id: 19 },
-      { text: 'filler', id: 10 },
-      { text: 'filler', id: 11 },
-      { text: 'filler', id: 21 },
-      { text: 'filler', id: 31 },
-      { text: 'filler', id: 41 },
-      { text: 'filler', id: 51 },
-      { text: 'filler', id: 61 },
-      { text: 'filler', id: 71 },
-      { text: 'filler', id: 81 },
+      { text: 'Welcome to NYCLive! Chat', id: 1 },
     ],
   }
 
   componentDidMount() {
-    this.createWebRTC();
+    this.createConnection();
   }
 
   componentWillUnmount() {
@@ -48,8 +30,8 @@ class Broadcast extends Component {
 
   onKeyPressHandler = (event) => {
     if (event.key === 'Enter') {
-      console.log(event.target.value, this.state.connection);
       this.state.connection.send({ message: event.target.value });
+      this.updateChat(event.target.value);
     }
   }
 
@@ -57,31 +39,25 @@ class Broadcast extends Component {
     this.setState({ input: event.target.value });
   }
 
-  createWebRTC = () => {
-    const connection = new window.RTCMultiConnection();
-    connection.socketURL = 'https://rtcmulticonnection.herokuapp.com:443/';
-    connection.session = {
-      audio: true,
-      video: true,
-      data: true,
-    };
-    connection.socketMessageEvent = 'video-broadcast';
-    // connection.mainContainer = this.BroadcastContainer;
-
-    connection.session.broadcast = true;
-    connection.session.oneway = true;
-
-    connection.onstream = (event) => {
-      connection.mainContainer = document.getElementById('main-broadcast');
-      connection.mainContainer.src = event.blobURL;
-      connection.mainContainer.muted = false;
-    };
-
+  createConnection() {
+    const connection = createWebRTC();
+    // add specific configuration here
     connection.onmessage = (event) => {
-      console.log(event.data);
+      this.updateChat(event.data.message);
     };
 
     this.setState({ connection });
+  }
+
+  updateChat = (message) => {
+    const currentLog = [...this.state.chatLog];
+    const chatData = {
+      text: message,
+      id: new Date() + message,
+    };
+    currentLog.push(chatData);
+    // when message is sent, reset input value
+    this.setState({ chatLog: currentLog, input: '' });
   }
 
   joinRoom = (roomId) => {
@@ -129,7 +105,7 @@ class Broadcast extends Component {
                   Chat
                 </Header>
                 <Divider />
-                <div className={classes.TextContainer}>
+                <div className={classes.TextContainer} ref={this.chat} >
                   {chatList}
                 </div>
                 <Input

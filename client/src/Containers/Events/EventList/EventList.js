@@ -43,7 +43,6 @@ class EventList extends Component {
   }
 
   render() {
-    console.log(this.props);
     const list = this.props.eventList.map((event) => (
         <Segment raised key={event.event_id + event.end_date_time} className={classes.Event}>
           <Grid>
