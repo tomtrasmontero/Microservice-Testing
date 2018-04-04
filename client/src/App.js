@@ -12,8 +12,8 @@ import Aux from './hoc/Aux/Aux';
 
 class App extends Component {
   state = {
-    loggedIn: true,
-    personId: 1,
+    loggedIn: false,
+    personId: 0,
   }
 
   checkAuth = async (email) => {

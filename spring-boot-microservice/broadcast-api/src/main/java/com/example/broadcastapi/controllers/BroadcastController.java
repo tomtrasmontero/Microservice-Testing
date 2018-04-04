@@ -35,16 +35,9 @@ public class BroadcastController {
     }
 
 
-//    @DeleteMapping("/{broadcastId}")
-//    public HttpStatus deleteEventById(@PathVariable Long broadcastId) throws EmptyResultDataAccessException {
-//
-//        broadcastRepository.delete(broadcastId);
-//        return HttpStatus.OK;
-//    }
-
     @DeleteMapping("/{eventId}")
-    public HttpStatus deleteEventByEventId(@PathVariable String eventId) throws EmptyResultDataAccessException {
-        Broadcast broadcast = broadcastRepository.findByeventId(eventId);
+    public HttpStatus deleteEventByEventId(@PathVariable String roomId) throws EmptyResultDataAccessException {
+        Broadcast broadcast = broadcastRepository.findByroomId(roomId);
         broadcastRepository.delete(broadcast.getId());
         return HttpStatus.OK;
     }

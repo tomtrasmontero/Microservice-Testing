@@ -11,6 +11,7 @@ class Broadcast extends Component {
     connection: null,
     visible: true,
     input: '',
+    isLive: false,
     chatLog: [
       { text: 'Welcome to NYCLive! Chat', id: 1 },
     ],
@@ -32,7 +33,7 @@ class Broadcast extends Component {
     this.state.connection.closeSocket();
 
     // if broadcast leaves, delete from backend;
-    if (!this.props.location.search) {
+    if (!this.props.location.search && this.state.isLive) {
       axios.delete(`${url}/${this.props.match.params.roomId}`);
     }
   }
@@ -100,7 +101,7 @@ class Broadcast extends Component {
     };
 
     axios.post(url, reqBody).catch(err => console.log(err));
-    broadcast.open(roomId);
+    this.setState({ isLive: true }, broadcast.open(roomId));
   }
 
   toggleVisibility = () => this.setState({ visible: !this.state.visible })
