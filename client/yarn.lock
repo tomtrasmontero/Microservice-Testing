@@ -1820,6 +1820,10 @@ crypto-random-string@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/crypto-random-string/-/crypto-random-string-1.0.0.tgz#a230f64f568310e1498009940790ec99545bca7e"
 
+crypto-random@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/crypto-random/-/crypto-random-1.0.3.tgz#c04179d1cd6439f5b51a19997279f24ddb48c208"
+
 css-color-names@0.0.4:
   version "0.0.4"
   resolved "https://registry.yarnpkg.com/css-color-names/-/css-color-names-0.0.4.tgz#808adc2e79cf84738069b646cb20ec27beb629e0"
@@ -6318,6 +6322,12 @@ run-async@^2.2.0:
   resolved "https://registry.yarnpkg.com/run-async/-/run-async-2.3.0.tgz#0371ab4ae0bdd720d4166d7dfda64ff7a445a6c0"
   dependencies:
     is-promise "^2.1.0"
+
+rword@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/rword/-/rword-2.2.0.tgz#e5d5d04ba71ed182ad6c04ebfa74d1fa0847e5fd"
+  dependencies:
+    crypto-random "^1.0.3"
 
 rx-lite-aggregates@^4.0.8:
   version "4.0.8"

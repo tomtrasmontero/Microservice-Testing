@@ -11,7 +11,6 @@ class EventAccordion extends Component {
 
   handleClick = (e, titleProps) => {
     const { index } = titleProps;
-    console.log(index);
     const { activeIndex } = this.state;
     const newIndex = activeIndex === index ? -1 : index;
 

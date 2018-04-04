@@ -11,4 +11,6 @@ public interface BroadcastRepository extends CrudRepository<Broadcast, Long> {
 
     List<Broadcast> findAll();
 
+    Broadcast findByeventId(String eventId);
+
 }

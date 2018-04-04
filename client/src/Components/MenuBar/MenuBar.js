@@ -18,7 +18,7 @@ class MenuBar extends Component {
   }
 
   handleItemClick = (e, { name }) => {
-    this.props.history.push(name);
+    this.props.history.push(`/${name}`);
     this.setState({ activeItem: name });
   }
 

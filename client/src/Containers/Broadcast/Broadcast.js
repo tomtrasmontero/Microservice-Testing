@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import { Container, Segment, Button, Grid, Header, Divider, Input } from 'semantic-ui-react';
+import { withRouter } from 'react-router-dom';
+import axios from 'axios';
+import PropTypes from 'prop-types';
 import createWebRTC from '../../RTCMultiConnection';
 import classes from './Broadcast.scss';
 
@@ -18,6 +21,7 @@ class Broadcast extends Component {
   }
 
   componentWillUnmount() {
+    const url = '/broadcast';
     // clear cache, local streams, close socket, and connection to signaling server
     this.state.connection.attachStreams.forEach((stream) => {
       stream.stop();
@@ -26,6 +30,11 @@ class Broadcast extends Component {
       this.state.connection.disconnectWith(p);
     });
     this.state.connection.closeSocket();
+
+    // if broadcast leaves, delete from backend;
+    if (!this.props.location.search) {
+      axios.delete(`${url}/${this.props.match.params.roomId}`);
+    }
   }
 
   onKeyPressHandler = (event) => {
@@ -46,7 +55,12 @@ class Broadcast extends Component {
       this.updateChat(event.data.message);
     };
 
-    this.setState({ connection });
+    // check if user is joining or broadcasting
+    this.setState({ connection }, () => {
+      if (this.props.location.search === '?join') {
+        this.joinRoom(this.props.match.params.roomId);
+      }
+    });
   }
 
   updateChat = (message) => {
@@ -73,30 +87,39 @@ class Broadcast extends Component {
 
   startRoom = () => {
     const broadcast = this.state.connection;
-
+    const { eventId } = this.props.location.state;
+    const { roomId } = this.props.match.params;
+    const url = '/broadcast';
+    const reqBody = {
+      roomId,
+      eventId,
+    };
     broadcast.sdpConstraints.mandatory = {
       OfferToReceiveAudio: false,
       OfferToReceiveVideo: false,
     };
 
-    broadcast.open('testId1');
+    axios.post(url, reqBody).catch(err => console.log(err));
+    broadcast.open(roomId);
   }
 
   toggleVisibility = () => this.setState({ visible: !this.state.visible })
 
   render() {
     const chatList = this.state.chatLog.map(chat => <p key={chat.id}>{chat.text}</p>);
-
     return (
       <Container>
         <Grid>
           <Grid.Row>
             <Grid.Column computer={11} mobile={16}>
               <Segment className={classes.Broadcast}>
-                <video id="main-broadcast" track="sdf" controls muted autoPlay>
+                <video id="main-broadcast" track="sdf" muted controls autoPlay>
                   <track kind="captions" />
                   Your browser does not support the video tag.
                 </video>
+              </Segment>
+              <Segment>
+                <Button onClick={() => this.startRoom()}>Start</Button>
               </Segment>
             </Grid.Column>
             <Grid.Column computer={5} mobile={16}>
@@ -119,14 +142,20 @@ class Broadcast extends Component {
               </Segment>
             </Grid.Column>
           </Grid.Row>
-          <Grid.Row textAlign="center">
-            <Button onClick={() => this.joinRoom('testId1')}>Join</Button>
-            <Button onClick={() => this.startRoom()}>Start</Button>
-          </Grid.Row>
         </Grid>
       </Container>
     );
   }
 }
 
-export default Broadcast;
+Broadcast.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape().isRequired,
+  }).isRequired,
+  location: PropTypes.shape({
+    search: PropTypes.string,
+    state: PropTypes.shape(),
+  }).isRequired,
+};
+
+export default withRouter(Broadcast);

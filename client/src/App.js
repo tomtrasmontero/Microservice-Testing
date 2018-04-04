@@ -7,12 +7,13 @@ import Events from './Containers/Events/Events';
 import Login from './Containers/Login/Login';
 import UserEvents from './Components/UserEvents/UserEvents';
 import Broadcast from './Containers/Broadcast/Broadcast';
+import BroadcastList from './Containers/BroadcastList/BroadcastList';
 import Aux from './hoc/Aux/Aux';
 
 class App extends Component {
   state = {
-    loggedIn: false,
-    personId: 0,
+    loggedIn: true,
+    personId: 1,
   }
 
   checkAuth = async (email) => {
@@ -30,7 +31,6 @@ class App extends Component {
   signUp = async (user) => {
     const url = '/events/users';
     const result = await axios.post(url, user);
-    console.log(result);
     if (result.status === 200) {
       this.setState({ loggedIn: true, personId: result.data.id });
       return true;
@@ -66,12 +66,19 @@ class App extends Component {
       />
     );
 
+    const BroadcastPage = (
+      <Broadcast
+        personId={this.state.personId}
+      />
+    );
+
     let routes = (
       <Switch>
         <Route path="/home" exact component={Home} />
         <Route path="/events" exact component={() => EventPage} />
         <Route path="/login" exact component={() => SignUp} />
-        <Route path="/broadcast" exact component={Broadcast} />
+        <Route path="/broadcast/:roomId" component={() => BroadcastPage} />
+        <Route path="/broadcast" exact component={BroadcastList} />
         <Redirect to="/home" />
       </Switch>
     );
@@ -82,7 +89,8 @@ class App extends Component {
           <Route path="/home" exact component={Home} />
           <Route path="/events" exact component={() => EventPage} />
           <Route path="/login" exact component={() => SignUp} />
-          <Route path="/broadcast" exact component={Broadcast} />
+          <Route path="/broadcast/:roomId" component={() => BroadcastPage} />
+          <Route path="/broadcast" exact component={BroadcastList} />
           <Route path="/userEvents" exact component={() => UserPage} />
           <Redirect to="/home" />
         </Switch>

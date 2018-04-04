@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React, { Component } from 'react';
 import { Header, Segment, Grid, Divider, Icon } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
@@ -43,22 +42,26 @@ class EventList extends Component {
   }
 
   render() {
-    const list = this.props.eventList.map((event) => (
+    const list = this.props.eventList.map((event) => {
+      let icon = <Icon name="empty star" onClick={() => this.handleSave(event.event_id, false)} />;
+      if (this.state.saved.includes(event.event_id)) {
+        icon = (
+          <Icon
+            name="star"
+            color="yellow"
+            personid={this.props.personId}
+            onClick={() => this.handleSave(event.event_id, true)}
+          />
+        );
+      }
+      return (
         <Segment raised key={event.event_id + event.end_date_time} className={classes.Event}>
           <Grid>
             <Grid.Row>
               <Grid.Column computer={16}>
                 <Header textAlign="center">
                   { this.props.loggedIn ?
-                      this.state.saved.includes(event.event_id) ?
-                      <Icon
-                        name="star"
-                        color="yellow"
-                        personid={this.props.personId}
-                        onClick={() => this.handleSave(event.event_id, true)}
-                      />
-                      :
-                      <Icon name="empty star" onClick={() => this.handleSave(event.event_id, false)} />
+                    icon
                     :
                     null
                   }
@@ -90,7 +93,8 @@ class EventList extends Component {
             </Grid.Row>
           </Grid>
         </Segment>
-      ));
+      );
+    });
 
     return (
       <Aux>
