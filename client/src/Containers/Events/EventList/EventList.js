@@ -17,7 +17,7 @@ class EventList extends Component {
   }
 
   getSavedEvents = async () => {
-    const url = '/events';
+    const url = `${process.env.REACT_APP_HOST}/events`;
     const result = await axios.get(url);
     const filtered = result.data.filter(event => (event.userId * 1) === this.props.personId);
     const eventCollection = filtered.reduce((accum, event) => [...accum, event.eventId], []);
@@ -27,11 +27,11 @@ class EventList extends Component {
   handleSave = async (eventId, check) => {
     if (check) {
       const trxId = this.state.data.filter(e => e.eventId === eventId)[0].id;
-      const url = `/events/${trxId}`;
+      const url = `${process.env.REACT_APP_HOST}/events/${trxId}`;
       await axios.delete(url);
       this.getSavedEvents();
     } else {
-      const url = '/events';
+      const url = `${process.env.REACT_APP_HOST}/events`;
       const request = await axios.post(url, {
         userId: this.props.personId,
         eventId,

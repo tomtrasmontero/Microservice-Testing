@@ -62,7 +62,7 @@ class Events extends Component {
         <Filter clicked={(q, borough) => this.getCurrentEvents(null, q, borough)} />
         <Container>
           <Segment raised className={classes.Events}>
-            <Container>
+            <Container textAlign="center">
               <Button
                 floated="right"
                 onClick={() => this.getCurrentEvents('next')}

@@ -20,7 +20,7 @@ class EventList extends Component {
 
   getSavedEvents = async () => {
     const eventsList = {};
-    const url = '/events';
+    const url = `${process.env.REACT_APP_HOST}/events`;
     const result = await axios.get(url);
 
     // exit when result is empty
@@ -56,8 +56,7 @@ class EventList extends Component {
         eventId = event.id;
       }
     });
-    await axios.delete(`/events/${eventId}`)
-      .then(err => console.log(err));
+    await axios.delete(`${process.env.REACT_APP_HOST}/events/${eventId}`);
 
     // get data only when there is item saved in the backend
     await this.getSavedEvents();

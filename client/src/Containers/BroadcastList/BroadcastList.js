@@ -3,6 +3,8 @@ import axios from 'axios';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Container, Grid, Segment, Loader, List, Button, Icon } from 'semantic-ui-react';
+import broadcastHeader from '../../assets/ImageBroadcast.jpg';
+import Aux from '../../hoc/Aux/Aux';
 import classes from './BroadcastList.scss';
 
 class BroadcastList extends Component {
@@ -18,7 +20,7 @@ class BroadcastList extends Component {
   }
 
   getLiveData = async () => {
-    const url = '/broadcast';
+    const url = `${process.env.REACT_APP_HOST}/broadcast`;
     const request = await axios.get(url);
 
     this.setState({ liveBroadcast: request.data });
@@ -72,13 +74,24 @@ class BroadcastList extends Component {
       ));
     }
     return (
-      <Container className={classes.BroadcastList}>
-        <Grid>
-          <Grid.Row columns={2}>
-            { broadcastList }
-          </Grid.Row>
-        </Grid>
-      </Container>
+      <Aux>
+        <div className={classes.EventsContainer} style={{ backgroundImage: `url(${broadcastHeader})` }}>
+          <div className={classes.EventsText}>
+            <h2 className={classes.Header}>
+              Broadcast
+            </h2>
+          </div>
+        </div>
+        <Container className={classes.BroadcastList}>
+          <Segment raised >
+            <Grid>
+              <Grid.Row columns={2}>
+                { broadcastList }
+              </Grid.Row>
+            </Grid>
+          </Segment>
+        </Container>
+      </Aux>
     );
   }
 }

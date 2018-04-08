@@ -17,7 +17,7 @@ class App extends Component {
   }
 
   checkAuth = async (email) => {
-    const url = '/events/users';
+    const url = `${process.env.REACT_APP_HOST}/events/users`;
     const result = await axios.get(url);
     const auth = result.data.filter(user => user.email === email);
     if (auth.length > 0) {
@@ -29,7 +29,7 @@ class App extends Component {
   };
 
   signUp = async (user) => {
-    const url = '/events/users';
+    const url = `${process.env.REACT_APP_HOST}/events/users`;
     const result = await axios.post(url, user);
     if (result.status === 200) {
       this.setState({ loggedIn: true, personId: result.data.id });

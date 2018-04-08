@@ -34,8 +34,7 @@ public class BroadcastController {
         return foundBroadcast;
     }
 
-
-    @DeleteMapping("/{eventId}")
+    @DeleteMapping("/{roomId}")
     public HttpStatus deleteEventByEventId(@PathVariable String roomId) throws EmptyResultDataAccessException {
         Broadcast broadcast = broadcastRepository.findByroomId(roomId);
         broadcastRepository.delete(broadcast.getId());

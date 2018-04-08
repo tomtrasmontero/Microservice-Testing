@@ -22,7 +22,7 @@ class Broadcast extends Component {
   }
 
   componentWillUnmount() {
-    const url = '/broadcast';
+    const url = `${process.env.REACT_APP_HOST}/broadcast`;
     // clear cache, local streams, close socket, and connection to signaling server
     this.state.connection.attachStreams.forEach((stream) => {
       stream.stop();
@@ -90,7 +90,7 @@ class Broadcast extends Component {
     const broadcast = this.state.connection;
     const { eventId } = this.props.location.state;
     const { roomId } = this.props.match.params;
-    const url = '/broadcast';
+    const url = `${process.env.REACT_APP_HOST}/broadcast`;
     const reqBody = {
       roomId,
       eventId,
